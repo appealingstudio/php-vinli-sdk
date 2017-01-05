@@ -12,4 +12,4 @@ You kinda need a vinli adapter and developer account. Meineke is the distributer
 
 To install this SDK run
 
-```composer require ``
+`composer require "appealingstudio/php-vinli-sdk":"dev-master"`
