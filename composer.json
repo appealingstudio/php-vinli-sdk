@@ -7,7 +7,8 @@
             "email": "kiefer.waight@appealingstudio.com"
         }
     ],
-    "minimum-stability" : "dev",
+    "version": "dev-master",
+    "minimum-stability": "dev",
     "prefer-stable" : true,
     "require": {
         "php": ">=5.3.0"
