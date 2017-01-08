@@ -17,6 +17,9 @@ To install this SDK run
 ## Current support
 
 - Authentication
-- Request devices
-- Request vehicles
+- Request devices list
+- Request specific device
+- Request vehicles list
+- Request vehicle details
+- Request latest vehicle
 - Request snapshots
