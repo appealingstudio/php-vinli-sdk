@@ -1,25 +1,27 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kwaight
- * Date: 1/5/17
- * Time: 6:03 PM
+ * @author: Kiefer Waight <kiefer.waight@appealingstudio.com>
+ * @package Vinli
+ * @version 1.0.0
+ * @link http://appealingstudio.com
  */
 
 namespace Vinli;
 
 
-class Vehicle
+/**
+ * Class Vehicle
+ * @package Vinli
+ */
+class Vehicle extends BaseClass
 {
-    private $client;
-    private $links;
+    /**
+     * @var string
+     */
+    public static $single = "vehicle";
 
-    public function __construct($vehicleParams,$client){
-
-        $this->client = $client;
-
-        foreach($vehicleParams as $key=>$param){
-            $this->$key = $param;
-        }
-    }
+    /**
+     * @var string
+     */
+    public static $plural = "vehicles";
 }

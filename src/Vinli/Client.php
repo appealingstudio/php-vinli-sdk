@@ -1,51 +1,78 @@
 <?php
 /**
- * Created by PhpStorm.
- * User: kwaight
- * Date: 1/5/17
- * Time: 4:05 PM
+ * @author: Kiefer Waight <kiefer.waight@appealingstudio.com>
+ * @package Vinli
+ * @version 1.0.0
+ * @link http://appealingstudio.com
  */
 
 namespace Vinli;
 
 use GuzzleHttp;
 
-class Client
+/**
+ * Class Client
+ * @package Vinli
+ */
+class Client extends BaseClass
 {
-
-    private $appId;
-    private $secretKey;
-    private $auth;
-    private $guzzleClient;
-
+    /**
+     * Client constructor.
+     * @param string $appId
+     * @param string $secretKey
+     */
     public function __construct($appId, $secretKey)
     {
         //Load Config
         $this->appId = $appId;
         $this->secretKey = $secretKey;
-        $this->guzzleClient = new GuzzleHttp\Client();
+        $this->client = new GuzzleHttp\Client();
 
         $this->auth = ['auth' => [ $this->appId, $this->secretKey] ];
     }
 
+    /**
+     * Request all devices for developer account
+     *
+     * @return array
+     */
     public function getDevices()
     {
         $url = "https://platform.vin.li/api/v1/devices";
         $response = $this->get($url);
 
-        $rawDevices = $response->body->devices;
+        $rawRecords = $response->body->devices;
 
-        $devices = [];
-        foreach($rawDevices as $key=>$deviceParams){
-            $devices[] = new Device($deviceParams,$this);
+        $records = [];
+        foreach($rawRecords as $key=>$params){
+            $records[] = new Device($params,$this);
         }
 
-        return $devices;
+        return $records;
     }
 
-    public function get($url,$params = array()){
-        $res = $this->guzzleClient->request("GET", $url, array_merge($this->auth, ['query'=>$params]));
-        $response = new Response(json_decode($res->getBody()),$res->getStatusCode());
-        return $response;
+    /**
+     * Request a specific device by ID
+     *
+     * @param string $id
+     * @return mixed
+     */
+    public function getDevice($id){
+        return $this->getOfType(
+            "https://platform.vin.li/api/v1/devices/".$id,
+            "Device"
+        );
+    }
+
+    /**
+     * Request a specific vehicle by ID
+     * @param string $id
+     * @return mixed
+     */
+    public function getVehicle($id){
+        return $this->getOfType(
+            "https://platform.vin.li/api/v1/vehicles/".$id,
+            "Vehicle"
+        );
     }
 }
